@@ -1,9 +1,9 @@
-param([string] $ExpectedProfile = '狗狗加速.com')
+param([string] $ExpectedProfile = '')
 
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot '_profile.ps1')
 $active = Resolve-ActiveClashProfile
-if ($active.ProfileName -ne $ExpectedProfile) {
+if ($ExpectedProfile -and $active.ProfileName -ne $ExpectedProfile) {
     throw "当前订阅为「$($active.ProfileName)」，预期为「$ExpectedProfile」。"
 }
 

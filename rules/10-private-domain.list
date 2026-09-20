@@ -1,0 +1,2 @@
+# 私有域名直接连接；当前引用 MetaCubeX geosite/private。
+RULE-SET,self-private-domain,DIRECT

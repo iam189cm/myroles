@@ -1,7 +1,20 @@
-// Extra rule providers for the current Clash Verge subscription.
+// Portable rule providers and a selectable outbound group.
 // Routing order is managed by the subscription's Rules enhancement file.
 function main(config) {
-  const proxyGroup = "狗狗加速.com";
+  const proxyGroup = "自选代理";
+  const groups = Array.isArray(config["proxy-groups"]) ? config["proxy-groups"] : [];
+  if (!groups.some(group => group.name === proxyGroup)) {
+    const preferred = groups.find(group =>
+      group.type === "select" && Array.isArray(group.proxies) && group.proxies.length > 0
+    );
+    const selectable = { name: proxyGroup, type: "select", "include-all": true };
+    if (preferred) {
+      selectable.proxies = [preferred.name];
+      selectable["default-selected"] = preferred.name;
+    }
+    config["proxy-groups"] = [selectable, ...groups];
+  }
+
   const source = "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/";
   const common = { type: "http", format: "mrs", interval: 86400, proxy: proxyGroup };
 

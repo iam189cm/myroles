@@ -1,0 +1,2 @@
+# 国内域名直接连接；当前引用 MetaCubeX geosite/cn。
+RULE-SET,self-cn-domain,DIRECT

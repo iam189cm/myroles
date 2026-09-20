@@ -1,0 +1,2 @@
+# 国内 IP 直接连接；排在域名规则之后，避免 IP 判断抢先覆盖域名规则。
+RULE-SET,self-cn-ip,DIRECT,no-resolve

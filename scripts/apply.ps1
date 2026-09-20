@@ -1,16 +1,21 @@
 param(
-    [string] $ExpectedProfile = '狗狗加速.com',
+    [string] $ExpectedProfile = '',
     [switch] $CheckOnly
 )
 
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot '_profile.ps1')
 $active = Resolve-ActiveClashProfile
-if ($active.ProfileName -ne $ExpectedProfile) {
+if ($ExpectedProfile -and $active.ProfileName -ne $ExpectedProfile) {
     throw "当前订阅为「$($active.ProfileName)」，预期为「$ExpectedProfile」。请检查规则中的代理组名称。"
 }
 
 $repoRoot = Split-Path $PSScriptRoot -Parent
+if ($CheckOnly) {
+    & (Join-Path $PSScriptRoot 'build.ps1') -CheckOnly
+} else {
+    & (Join-Path $PSScriptRoot 'build.ps1')
+}
 $sourceRules = Join-Path $repoRoot 'clash-verge\rules.yaml'
 $sourceScript = Join-Path $repoRoot 'clash-verge\extension.js'
 foreach ($path in @($sourceRules, $sourceScript)) {
