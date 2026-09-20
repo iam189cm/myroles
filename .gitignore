@@ -1,0 +1,13 @@
+# Keep the repository limited to rule files and helper scripts.
+*.log
+*.bak
+*.backup
+*.codex-temp
+**/profiles.yaml
+**/verge.yaml
+**/config.yaml
+**/clash-verge.yaml
+**/clash-verge-check.yaml
+**/*.key
+**/*.pem
+**/.env*
